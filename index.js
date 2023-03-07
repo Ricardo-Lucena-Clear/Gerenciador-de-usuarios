@@ -1,5 +1,9 @@
-var fields = document.querySelectorAll ("#form-user-create [name]");
+var fields = document.querySelectorAll ("#form-user-create[name]");
 var user = {};
+
+document.getElementById("form-user-create").addEventListener("submit", function(event){
+    event.preventDefault();
+
 
 fields.forEach (function(fields, index){
 
@@ -16,3 +20,5 @@ fields.forEach (function(fields, index){
     
 })
 console.log(user);
+})
+
