@@ -4,24 +4,26 @@ class UserController {
         this.tableId = document.getElementById(tableId);
 
         this.onSubmit();
-    };
+    }
 
     onSubmit (){
         this.formE1.addEventListener("submit", event => {
 
             event.preventDefault();
 
-            this.addLine(this.getValues());
+            let user = this.getValues();
+
+            this.addLine(user);
         
         });
-    };
+    }
 
     getValues(){
         let user = {};
            
-     this.formE1.elements.forEach (function(fields, index){
+     [...this.formE1.elements].forEach(function (fields, index) {
 
-            if (fields.name =="gender"){
+            if (fields.name =="gender") {
                 
                 if (fields.checked){
                     user[fields.name]= fields.value;
@@ -32,7 +34,7 @@ class UserController {
                 user[fields.name] = fields.value;
             };
             
-        });
+        })
         
         return new User (
             user.name, 
@@ -46,10 +48,10 @@ class UserController {
             );
        
 
-    };
+    }
     
- addLine(dataUser,tableId) { 
-    document.getElementById(tableId).innerHTML= `
+ addLine(dataUser) { 
+    this.tableId.innerHTML= `
      <tr>
         <td><img src="dist/img/user1-128x128.jpg" alt="User Image" class="img-circle img-sm"></td>
          <td>${dataUser.name}</td>
@@ -63,5 +65,5 @@ class UserController {
     </tr>
     `;
 
-};
-};
+}
+}
