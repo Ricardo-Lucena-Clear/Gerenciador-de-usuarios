@@ -71,8 +71,15 @@ class UserController {
 
     getValues(){
         let user = {};
+        let isValid = true;
            
      [...this.formE1.elements].forEach(function (fields, index) {
+
+        if (['name', 'email', 'password'].indexOf(fields.name) > -1 && !fields.value){
+
+            fields.parentElement.classList.add('has-error');
+            isValid = false;
+        }
 
             if (fields.name =="gender") {
                 
@@ -89,6 +96,10 @@ class UserController {
             };
             
         })
+
+        if (!isValid){
+            return false;
+        }
         
         return new User (
             user.name, 
