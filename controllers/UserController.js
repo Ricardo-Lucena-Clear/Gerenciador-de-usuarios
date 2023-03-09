@@ -199,8 +199,15 @@ class UserController {
         let users = [];
         if (sessionStorage.getItem("users")) {
             users = JSON.parse(sessionStorage.getItem("users"));
+            /*if (localStorage.getItem("users")) {
+            users = JSON.parse(localStorage.getItem("users"));
+
+        *COMO TROCAR DE SESSIONSTORAGE PARA LOCALSTORAGE 
+            *BASTA MUDAR APENAS O NOME, POIS A ESTRUTURA É A MESMA
+            */
         }
         return users
+         
     }
     selectAll() {   
         let users = this.getusersStorage();   
@@ -214,6 +221,10 @@ class UserController {
         let users = this.getusersStorage();
         users.push(data);
         sessionStorage.setItem("users", JSON.stringify(users));
+        //sessionStorage.setItem("users", JSON.stringify(users));
+        /*COMO TROCAR DE SESSIONSTORAGE PARA LOCALSTORAGE 
+            *BASTA MUDAR APENAS O NOME, POIS A ESTRUTURA É A MESMA*/
+        
     }
     addLine(dataUser) {
         let tr = document.createElement('tr');
