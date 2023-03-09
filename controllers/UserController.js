@@ -46,9 +46,11 @@ class UserController {
                         user.save();
                         this.getTr(user, tr);
     
-                this.updateCount();
+                        this.updateCount();
 
                     this.formUpdateEl.reset();
+
+                    this.showPanelCreate();
 
                     btn.disabled = false;
 
@@ -184,10 +186,13 @@ class UserController {
 
     getusersStorage () {
         let users = [];
-        if (sessionStorage.getItem("users")) {
-            users = JSON.parse(sessionStorage.getItem("users"));
+        if (localStorage.getItem("users")) {
+            users = JSON.parse(localStorage.getItem("users"));
             /*if (localStorage.getItem("users")) {
             users = JSON.parse(localStorage.getItem("users"));
+            
+            /*if (sessionStorage.getItem("users")) {
+            users = JSON.parse(sessionStorage.getItem("users"));
 
         *COMO TROCAR DE SESSIONSTORAGE PARA LOCALSTORAGE 
             *BASTA MUDAR APENAS O NOME, POIS A ESTRUTURA É A MESMA
@@ -202,7 +207,7 @@ class UserController {
             let user = new User();
             user.loadFromJSON(dataUser);
             this.addLine(user);
-        })
+        });
     }
     insert(data) {
         let users = this.getusersStorage();
@@ -220,10 +225,9 @@ class UserController {
 
     }
     getTr(dataUser, tr = null){
-        if (tr === null)tr =  document.createElement('tr');
+        if (tr === null) tr =  document.createElement('tr');
         tr.dataset.user = JSON.stringify(dataUser);
         tr.innerHTML = `
-            <tr>
                 <td><img src=${dataUser.photo} class="img-circle img-sm"></td>
                 <td>${dataUser.name}</td>
                 <td>${dataUser.email}</td>
@@ -233,7 +237,6 @@ class UserController {
                     <button type="button" class="btn btn-primary btn-edit btn-xs btn-flat">Editar</button>
                     <button type="button" class="btn btn-danger btn-xs btn-delete btn-flat">Excluir</button>
                 </td>
-            </tr>
         `;
         this.addEventsTr(tr);
         return tr;

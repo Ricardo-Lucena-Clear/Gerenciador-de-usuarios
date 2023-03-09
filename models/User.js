@@ -69,24 +69,24 @@ class User {
 }
 static getusersStorage () {
     let users = [];
-    if (sessionStorage.getItem("users")) {
-        users = JSON.parse(sessionStorage.getItem("users"));
+    if (localStorage.getItem("users")) {
+        users = JSON.parse(localStorage.getItem("users"));
     }
-    return users;
+    return users
      
 }
 getNewID(){
     if (!window.id) window.id = 0;
     id++;
-    return id;
+    return id
 
 }
 save(){
     let users = User.getusersStorage();
-    if (this.id >0){
+    if (this.id > 0){
         users.map(u=>{
-            if (u._id === this.id){
-                u = this;
+            if (u._id == this.id){
+               Object.assign(u, this);
             }
             return u;
         });   
@@ -95,6 +95,6 @@ save(){
         users.push(this);
 
     }
-        sessionStorage.setItem("users", JSON.stringify(users));
+        localStorage.setItem("users", JSON.stringify(users));
 }
 }
