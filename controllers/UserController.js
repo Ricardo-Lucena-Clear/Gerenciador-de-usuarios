@@ -184,40 +184,43 @@ class UserController {
 
     }
 
-    getusersStorage () {
+   /* getusersStorage () {
         let users = [];
         if (localStorage.getItem("users")) {
             users = JSON.parse(localStorage.getItem("users"));
-            /*if (localStorage.getItem("users")) {
+
+
+
+            if (localStorage.getItem("users")) {
             users = JSON.parse(localStorage.getItem("users"));
             
-            /*if (sessionStorage.getItem("users")) {
+            if (sessionStorage.getItem("users")) {
             users = JSON.parse(sessionStorage.getItem("users"));
 
         *COMO TROCAR DE SESSIONSTORAGE PARA LOCALSTORAGE 
             *BASTA MUDAR APENAS O NOME, POIS A ESTRUTURA É A MESMA
-            */
+            *
         }
         return users
          
-    }
+    */
     selectAll() {   
-        let users = this.getusersStorage();   
+        let users = User.getusersStorage();   
         users.forEach(dataUser => {
             let user = new User();
             user.loadFromJSON(dataUser);
             this.addLine(user);
         });
     }
-    insert(data) {
+    /*insert(data) {
         let users = this.getusersStorage();
         users.push(data);
         sessionStorage.setItem("users", JSON.stringify(users));
-        //sessionStorage.setItem("users", JSON.stringify(users));
-        /*COMO TROCAR DE SESSIONSTORAGE PARA LOCALSTORAGE 
-            *BASTA MUDAR APENAS O NOME, POIS A ESTRUTURA É A MESMA*/
+        sessionStorage.setItem("users", JSON.stringify(users));
+        COMO TROCAR DE SESSIONSTORAGE PARA LOCALSTORAGE 
+            *BASTA MUDAR APENAS O NOME, POIS A ESTRUTURA É A MESMA
         
-    }
+    }*/
     addLine(dataUser) {
         let tr = this.getTr(dataUser);
         this.tableEl.appendChild(tr);
@@ -245,6 +248,9 @@ class UserController {
     addEventsTr(tr) {
         tr.querySelector(".btn-delete").addEventListener("click", e => {
             if (confirm("Deseja realmente excluir")) {
+                let user = new User();
+                user.loadFromJSON(JSON.parse(tr.dataset.user));
+                user.remove();
                 tr.remove();
                 this.updateCount();
             }
